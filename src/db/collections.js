@@ -7,3 +7,7 @@ export async function getEntireCollection(name) {
 
 	return JSON.parse(JSON.stringify(data));
 }
+
+export async function insertIntoCollection(name, data) {
+	await db.collection(name).insertOne(data);
+}
