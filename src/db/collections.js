@@ -11,3 +11,7 @@ export async function getEntireCollection(name) {
 export async function insertIntoCollection(name, data) {
 	await db.collection(name).insertOne(data);
 }
+
+export async function updateDocument(collection, filter, updateDoc) {
+	await db.collection(collection).updateOne(filter, updateDoc);
+}

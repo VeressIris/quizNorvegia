@@ -6,6 +6,8 @@
 	const questions = data.data.questions;
 
 	onMount(() => {
+		console.log(localStorage.getItem('username'));
+
 		if (localStorage.getItem('questions')) {
 			return;
 		}

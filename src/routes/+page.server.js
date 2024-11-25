@@ -8,8 +8,10 @@ export const actions = {
 		const formData = await request.formData();
 		const data = Object.fromEntries(formData.entries());
 
+		const username = capitalizeFirstLetter(data.nume) + ' ' + capitalizeFirstLetter(data.prenume);
+
 		const user = {
-			name: capitalizeFirstLetter(data.nume) + ' ' + capitalizeFirstLetter(data.prenume),
+			name: username,
 			score: 0
 		};
 

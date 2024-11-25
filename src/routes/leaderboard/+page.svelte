@@ -1,28 +1,15 @@
 <script>
-	let users = [
-		{
-			name: 'Alin Ancuta',
-			score: 100
-		},
-		{
-			name: 'Maranescu Vlad',
-			score: 400
-		},
-		{
-			name: 'Varga Toma',
-			score: 800
-		},
-		{
-			name: 'Gheorgiu Silvia',
-			score: 500
-		},
-		{
-			name: 'Andreas munteanu',
-			score: 200
-		}
-	];
+	import { onMount } from 'svelte';
+
+	let users = [];
+
+	let { data } = $props();
+
+	users = data.data.users;
 
 	users.sort((a, b) => b.score - a.score);
+
+	console.log(users);
 </script>
 
 <div class="flex flex-col items-center justify-center">

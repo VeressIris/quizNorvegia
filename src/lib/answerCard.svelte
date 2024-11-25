@@ -1,5 +1,11 @@
+<svelte:options customElement="answer-card" />
+
 <script>
 	let { answer, isCorrect, index } = $props();
+
+	function givePoints(responseTime) {
+		return Math.trunc(Math.min(1000, (1 / responseTime) * 1000000));
+	}
 
 	function pickColor() {
 		switch (index) {
@@ -16,13 +22,22 @@
 		}
 	}
 
-	// TODO: change this later
+	function dispatch(type) {
+		$host().dispatchEvent(new CustomEvent(type));
+	}
+
 	function handleClick() {
+		const stopTime = new Date();
+		const startTime = new Date(localStorage.getItem('startTime'));
+		const time = stopTime - startTime;
+
 		if (isCorrect) {
-			alert('Correct!');
-		} else {
-			alert('Incorrect!');
+			const score = givePoints(time);
+			localStorage.setItem('score', Number(localStorage.getItem('score')) + score);
+			console.log(localStorage.getItem('score'));
 		}
+
+		window.location = `/quiz/${Number(index) + 2}`;
 	}
 
 	let color = pickColor();
