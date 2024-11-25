@@ -1,3 +1,19 @@
+<script>
+	import { onMount } from 'svelte';
+
+	let { data } = $props();
+
+	const questions = data.data.questions;
+
+	onMount(() => {
+		if (localStorage.getItem('questions')) {
+			return;
+		}
+		localStorage.setItem('questions', JSON.stringify(questions));
+		// JSON.parse(localStorage.getItem('questions'));
+	});
+</script>
+
 <div class="flex flex-col items-center justify-center">
 	<h1 class="mb-3 text-3xl font-bold">Ești pregătit(ă)?</h1>
 	<p class="text-lg">Apasă butonul de mai jos pentru a începe quiz-ul.</p>
