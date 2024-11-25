@@ -6,18 +6,17 @@
 
 	let answers = $state([]);
 	let currentQuestion = $state({});
-	let length = 0;
+	let length = $state(0);
 	const startTime = new Date();
-
 	onMount(async () => {
-		if (data.questionID > JSON.parse(localStorage.getItem('questions')).length) {
+		length = JSON.parse(localStorage.getItem('questions')).length;
+		if (data.questionID > length) {
 			window.location = `/leaderboard`;
 
 			const response = await fetch('/api/update-score', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({
-					// username: 'Veress Iris',
 					username: localStorage.getItem('username'),
 					score: Number(localStorage.getItem('score'))
 				})
@@ -42,18 +41,16 @@
 	});
 </script>
 
-{#if answers.length > 0 && data.questionID <= answers.length}
+{#if data.questionID <= length}
 	<div class="flex flex-col items-center justify-center">
 		<h1 class="text-2xl font-bold">{data.questionID}. {currentQuestion.title}</h1>
 		<div class="my-8 grid grid-cols-2 grid-rows-2 gap-4">
 			{#each answers as answer, index}
 				<AnswerCard
-					onanswer-clicked={() => {
-						console.log('HI');
-					}}
 					answer={answer.text}
 					isCorrect={answer.isCorrect}
 					{index}
+					redirectIndex={data.questionID}
 				/>
 			{/each}
 		</div>

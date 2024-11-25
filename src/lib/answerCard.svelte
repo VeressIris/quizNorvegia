@@ -1,7 +1,7 @@
 <svelte:options customElement="answer-card" />
 
 <script>
-	let { answer, isCorrect, index } = $props();
+	let { answer, isCorrect, index, redirectIndex } = $props();
 
 	function givePoints(responseTime) {
 		return Math.trunc(Math.min(1000, (1 / responseTime) * 1000000));
@@ -37,7 +37,7 @@
 			console.log(localStorage.getItem('score'));
 		}
 
-		window.location = `/quiz/${Number(index) + 2}`;
+		window.location = `/quiz/${Number(redirectIndex) + 1}`;
 	}
 
 	let color = pickColor();
@@ -45,7 +45,7 @@
 
 <button
 	type="button"
-	class={`${color} flex items-center justify-center rounded-xl p-6 text-xl font-bold text-white`}
+	class={`${color} flex max-w-80 items-center justify-center rounded-xl p-6 text-xl font-bold text-white`}
 	onclick={handleClick}
 	aria-label={answer}
 >

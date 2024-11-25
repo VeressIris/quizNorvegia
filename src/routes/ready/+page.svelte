@@ -7,6 +7,7 @@
 
 	onMount(() => {
 		console.log(localStorage.getItem('username'));
+		console.log(JSON.parse(localStorage.getItem('questions')));
 
 		if (localStorage.getItem('questions')) {
 			return;
